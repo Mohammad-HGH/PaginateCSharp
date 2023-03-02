@@ -1,0 +1,33 @@
+﻿@model Paginate.Models.ShowPaging
+@using Paginate.Common
+
+<link rel="stylesheet" href="~/css/anchorstyles.css" />
+<form>
+    <h4>Show Paging</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            <b>Number: </b> @Html.DisplayFor(model => model.InputNumber)
+        </dt>
+        <dd>
+            <a asp-action="Number">Change Number</a>
+        </dd>
+    </dl>
+
+    <div>
+        @if (Model != null && Model.DisplayResult != null)
+        {
+            <ul>
+                @foreach (var item in Model.DisplayResult)
+                {
+                    <li>@Html.Raw(item)</li>
+                }
+            </ul>
+            <div>
+                @Html.PageLinks(@Model.PageInfo, x => Url.Action("ShowPaging",
+            new { page = x.ToString(), inputNumber = @Model.InputNumber }))
+            </div>
+        }
+    </div>
+</form>
